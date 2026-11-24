@@ -1,5 +1,2 @@
-# Nova Launcher
-Prototype Windows x64 Tauri 2 / Rust / Node.js (Vite). Build: npm install, node scripts/icon.mjs, npm run tauri build. CI Windows produit un installateur NSIS.
-Sélection du dossier du jeu et du JAR Nova compilé séparément sur la branche client. Télécharge Temurin JDK 25 via Adoptium et vérifie SHA-256, installe Fabric 0.19.5 pour 26.3 via l'installateur officiel. Fermer Minecraft Launcher avant installation. Le launcher officiel doit déjà être installé et initialisé.
-Le jeu et ses bibliothèques sont téléchargés par le launcher officiel au premier lancement. Configurer manuellement le dossier du jeu et le Java affichés dans le profil Fabric. Authentification Microsoft et droit au jeu gérés uniquement par le launcher officiel. Le nom local est décoratif ; le mode hors ligne dépend des fonctions officielles après une connexion valide. Aucun mot de passe ou token collecté.
-Prototype non compilé et non testé sous Windows. Aucun mod d'optimisation supplémentaire installé à ce stade.
+# Nova Native Installer 0.2 — prototype
+Windows x64, Rust/Tauri 2 and Node/Vite. Downloads Temurin Java 25, official Minecraft 26.3, libraries, native classifiers and assets. Verifies Mojang SHA-1 and Java SHA-256. Detects the original Nova agent JAR next to the installed exe or in the selected game folder. No Fabric or official launcher dependency. No launch button yet: authorized Microsoft authentication, complete argument rule handling, and direct launch are not implemented. Not tested on Windows. Build via GitHub Actions.

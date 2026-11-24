@@ -1,5 +1,5 @@
-.gradle/
+.nova-work/
 build/
-run/
-.idea/
-*.iml
+node_modules/
+*.jar
+*.class

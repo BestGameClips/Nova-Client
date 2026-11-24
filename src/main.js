@@ -1,0 +1,10 @@
+import {invoke} from '@tauri-apps/api/core';
+import {open} from '@tauri-apps/plugin-dialog';
+import './style.css';
+const $=id=>document.getElementById(id);
+$('nickname').value=localStorage.getItem('nova-local-name')||'';
+$('nickname').onchange=()=>localStorage.setItem('nova-local-name',$('nickname').value);
+$('browse').onclick=async()=>{const p=await open({directory:true,multiple:false});if(p)$('folder').value=p;};
+$('pick').onclick=async()=>{const p=await open({multiple:false,filters:[{name:'Nova JAR',extensions:['jar']}]});if(p)$('jar').value=p;};
+$('install').onclick=async()=>{if(!$('folder').value||!$('jar').value){$('status').textContent='Choisis le dossier et le JAR compilé.';return;} $('install').disabled=true;$('status').textContent='Installation en cours. Téléchargement de Java et Fabric…';try{$('status').textContent=await invoke('install_nova',{folder:$('folder').value,jar:$('jar').value});}catch(e){$('status').textContent=String(e);}finally{$('install').disabled=false;}};
+$('play').onclick=async()=>{try{await invoke('open_launcher');}catch(e){$('status').textContent=String(e);}};

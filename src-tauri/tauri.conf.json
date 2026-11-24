@@ -1,0 +1,36 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Nova Launcher",
+  "version": "0.1.0",
+  "identifier": "io.novaclient.launcher",
+  "build": {
+    "beforeDevCommand": "npm run dev -- --host 127.0.0.1 --port 1420 --strictPort",
+    "devUrl": "http://127.0.0.1:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "Nova Launcher",
+        "width": 820,
+        "height": 760,
+        "minWidth": 520,
+        "minHeight": 500
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; style-src 'self'; connect-src ipc: http://ipc.localhost"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": [
+      "nsis"
+    ],
+    "icon": [
+      "icons/icon.ico"
+    ]
+  }
+}

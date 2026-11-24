@@ -1,12 +1,5 @@
-# Nova Client 0.1 — prototype
-Minecraft Java 26.3, Fabric Loader 0.19.5, JDK 25.
-
-Menu vanilla avec fond dégradé et particules animées. Bandeau de chargement Nova décoratif, pas une mesure du progrès. Aucun jeu Minecraft redistribué.
-
-## Build
-GitHub Actions > Build Nova Client > artefact nova-client. Localement : JDK 25, Gradle 9.7.1, gradle clean build.
-
-## Installation
-Installer le profil Fabric 26.3 avec l'installateur officiel. Extraire nova-client.jar et start-client.bat ensemble. Le BAT copie le mod dans le dossier Minecraft standard et tente d'ouvrir le launcher officiel. Sélectionner le profil Fabric 26.3. Pour un dossier de jeu personnalisé, copier le mod manuellement dans son dossier mods.
-
-Prototype non testé en jeu. Vérifier le résultat de compilation avant utilisation.
+# Nova Launcher
+Prototype Windows x64 Tauri 2 / Rust / Node.js (Vite). Build: npm install, node scripts/icon.mjs, npm run tauri build. CI Windows produit un installateur NSIS.
+Sélection du dossier du jeu et du JAR Nova compilé séparément sur la branche client. Télécharge Temurin JDK 25 via Adoptium et vérifie SHA-256, installe Fabric 0.19.5 pour 26.3 via l'installateur officiel. Fermer Minecraft Launcher avant installation. Le launcher officiel doit déjà être installé et initialisé.
+Le jeu et ses bibliothèques sont téléchargés par le launcher officiel au premier lancement. Configurer manuellement le dossier du jeu et le Java affichés dans le profil Fabric. Authentification Microsoft et droit au jeu gérés uniquement par le launcher officiel. Le nom local est décoratif ; le mode hors ligne dépend des fonctions officielles après une connexion valide. Aucun mot de passe ou token collecté.
+Prototype non compilé et non testé sous Windows. Aucun mod d'optimisation supplémentaire installé à ce stade.

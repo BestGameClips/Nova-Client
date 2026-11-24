@@ -1,1 +1,1 @@
-{"required":true,"package":"nova.client.mixin","compatibilityLevel":"JAVA_25","client":["TitleMixin","LoadingMixin"],"injectors":{"defaultRequire":1}}
+{"required":true,"package":"nova.client.mixin","compatibilityLevel":"JAVA_25","client":["TitleMixin","LoadingMixin","PresenceMixin"],"injectors":{"defaultRequire":1}}

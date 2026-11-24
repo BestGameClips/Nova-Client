@@ -1,0 +1,1 @@
+{"schemaVersion":1,"id":"nova_client","version":"0.1.0","name":"Nova Client","description":"Animated client visual theme","environment":"client","mixins":["nova.mixins.json"],"depends":{"fabricloader":">=0.19.5","minecraft":"26.3","java":">=25"}}

@@ -1,0 +1,8 @@
+plugins { id 'net.fabricmc.fabric-loom' version '1.18.2' }
+version = '0.1.0'
+group = 'nova.client'
+repositories { mavenCentral(); maven { url = 'https://maven.fabricmc.net/' } }
+dependencies { minecraft 'com.mojang:minecraft:26.3'; implementation 'net.fabricmc:fabric-loader:0.19.5' }
+java { toolchain { languageVersion = JavaLanguageVersion.of(25) } }
+tasks.withType(JavaCompile).configureEach { options.release = 25; options.encoding = 'UTF-8' }
+jar { archiveFileName = 'nova-client.jar' }

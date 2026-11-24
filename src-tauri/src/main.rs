@@ -80,10 +80,15 @@ async fn install_native(folder:String)->ResultS<String>{
  let idx:serde_json::Value=serde_json::from_slice(&tokio::fs::read(indexpath).await.map_err(err)?).map_err(err)?;
  for obj in idx["objects"].as_object().ok_or("Index assets invalide")?.values(){let hash=s(obj,"hash")?;if hash.len()!=40||!hash.bytes().all(|b|b.is_ascii_hexdigit()){return Err("Hash invalide".into())}let rel=format!("{}/{}",&hash[..2],hash);verified(&c,&format!("https://resources.download.minecraft.net/{rel}"),&game.join("assets/objects").join(rel),hash).await?;}
  let exe=std::env::current_exe().map_err(err)?;
- let adjacent=exe.parent().ok_or("Dossier EXE absent")?.join("nova-client.jar");
+ let bundle=exe.parent().ok_or("Dossier EXE absent")?.to_path_buf();
+ let node=bundle.join("tools/node.exe");
+ let script=bundle.join("tools/recompile.mjs");
  let agent=game.join("nova-client.jar");
- if adjacent.is_file()&&adjacent!=agent{tokio::fs::copy(adjacent,&agent).await.map_err(err)?;}
- if !agent.is_file(){return Err(format!("Place nova-client.jar dans {} ou à côté de NovaLauncher.exe, puis relance.",game.display()))}
- Ok(format!("Minecraft et dépendances installés. Java : {}. Le lancement avec authentification Microsoft reste à intégrer.",java.display()))
+ if !node.is_file()||!script.is_file(){return Err("Archive portable incomplète : tools/node.exe ou recompile.mjs absent.".into())}
+ let java_path=java.clone();let g=game.clone();
+ let output=tokio::task::spawn_blocking(move||Command::new(node).arg(script).arg(g).arg(java_path).output()).await.map_err(err)?.map_err(err)?;
+ if !output.status.success(){return Err(format!("Recompilation locale échouée : {}\n{}",String::from_utf8_lossy(&output.stdout),String::from_utf8_lossy(&output.stderr)))}
+ if !agent.is_file(){return Err("JAR recompilé introuvable".into())}
+ Ok(format!("Installation et recompilation terminées. Client : {}. Le lancement Microsoft direct reste à intégrer.",agent.display()))
 }
 fn main(){tauri::Builder::default().plugin(tauri_plugin_dialog::init()).invoke_handler(tauri::generate_handler![install_native]).run(tauri::generate_context!()).expect("Nova Launcher");}
